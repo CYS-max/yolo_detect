@@ -55,7 +55,7 @@ elif mode=="文件夹批量压缩上传":
 
 elif mode=="视频检测":
     vid = st.file_uploader("上传视频",type=["mp4","avi"])
-    interval = st.slider("抽帧间隔",10,60,30)
+    interval = st.slider("抽帧间隔",1,15,4)
     if vid:
         tmp = tempfile.NamedTemporaryFile(delete=False,suffix=".mp4")
         tmp.write(vid.read())
