@@ -4,4 +4,4 @@ torch
 opencv-python-headless
 pandas
 xlsxwriter
-lapjv
+lap
