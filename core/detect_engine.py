@@ -40,7 +40,7 @@ def batch_folder_detect(folder_path, conf=config.DEFAULT_CONF, iou=config.DEFAUL
         })
     return res_list
 
-def video_detect(video_path, frame_interval=6, conf=0.28, iou=0.55):
+def video_detect(video_path, frame_interval=6, conf=0.28, iou=0.3): # 修改：iou从0.55降到0.3，放宽追踪匹配
     frame_idx = 0
     frame_counts = []
     track_appear_times = dict()
@@ -77,4 +77,7 @@ def video_detect(video_path, frame_interval=6, conf=0.28, iou=0.55):
     avg = round(sum(frame_counts)/len(frame_counts),2) if frame_counts else 0
     valid_ids = [tid for tid, times in track_appear_times.items() if times >= MIN_TRACK_FRAME]
     total_unique = len(valid_ids)
+    # 新增：兜底逻辑，追踪失效时取单帧最大人数作为总人数
+    if total_unique == 0 and len(frame_counts) > 0:
+        total_unique = max(frame_counts)
     return frame_counts, avg, total_unique
